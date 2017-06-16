@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/rxjs/5.4.0/Rx.min.js"></script>
+</head>
+
+<body>
+    <button>bbbb</button>
+    <div id="count"></div>
+    <script>
+        var button = document.querySelector('button');
+        Rx.Observable.fromEvent(button, 'click')
+            // scan (reduce) to a stream of counts
+            .scan(count =>{console.log(count); return count + 1}, 0)
+            // Set the count on an element each time it changes
+            .subscribe(count => document.querySelector('#count').innerHTML = count);
+    </script>
+</body>
+
+</html>

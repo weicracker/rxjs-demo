@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/rxjs/5.4.0/Rx.min.js"></script>
+</head>
+
+<body>
+    <script>
+        // Dynamically calculate the Body-Mass Index from an Observable of weight and one for height
+        var weight = Rx.Observable.of(70, 72, 76, 79, 75);
+        var height = Rx.Observable.of(1.76, 1.77, 1.78);
+        var m = Rx.Observable.of(2, 3, 4);
+        var bmi = Rx.Observable.combineLatest(weight, height,m, (w, h,m) => w / (h * h)+m);
+        bmi.subscribe(x => console.log('BMI is ' + x));
+    </script>
+</body>
+
+</html>

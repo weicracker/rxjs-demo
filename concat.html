@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/rxjs/5.4.0/Rx.min.js"></script>
+</head>
+
+<body>
+    <script>
+        // Concatenate a timer counting from 0 to 3 with a synchronous sequence from 1 to 10
+        var timer = Rx.Observable.interval(1000).take(4);
+        var sequence = Rx.Observable.range(1, 10);
+        var sequence15 = Rx.Observable.range(11, 15);
+        var result = Rx.Observable.concat(timer, sequence,sequence15);
+        //result.subscribe(x => console.log(x));
+        sequence15.subscribe(x => console.log(x));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/rxjs/5.4.0/Rx.min.js"></script>
+</head>
+
+<body>
+    <script>
+        var observable = Rx.Observable.create(function (proxyObserver) {
+                proxyObserver.next(1);
+                proxyObserver.next(2);
+                proxyObserver.next(3);
+                proxyObserver.complete();
+            })
+            .observeOn(Rx.Scheduler.async);
+
+        var finalObserver = {
+            next: x => console.log('got value ' + x),
+            error: err => console.error('something wrong occurred: ' + err),
+            complete: () => console.log('done'),
+        };
+
+        console.log('just before subscribe');
+        observable.subscribe(finalObserver);
+        console.log('just after subscribe');
+    </script>
+</body>
+
+</html>

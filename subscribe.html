@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/rxjs/5.4.0/Rx.min.js"></script>
+</head>
+
+<body>
+    <script>
+        var observable1 = Rx.Observable.interval(400);
+        var observable2 = Rx.Observable.interval(300);
+
+        var subscription = observable1.subscribe(x => console.log('first: ' + x));
+        var childSubscription = observable2.subscribe(x => console.log('second: ' + x));
+
+        subscription.add(childSubscription);
+
+        setTimeout(() => {
+            // Unsubscribes BOTH subscription and childSubscription
+            subscription.unsubscribe();
+        }, 1000);
+    </script>
+</body>
+
+</html>

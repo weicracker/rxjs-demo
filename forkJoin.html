@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/rxjs/5.4.0/Rx.min.js"></script>
+</head>
+
+<body>
+    <script>
+        /* Using observables and Promises */
+        var source = Rx.Observable.forkJoin(
+            Rx.Observable.range(0, 10),
+            Rx.Observable.from([1, 2, 3]),
+        );
+
+        var subscription = source.subscribe(
+            x => console.log(`onNext: ${x}`),
+            e => console.log(`onError: ${e}`),
+            () => console.log('onCompleted'));
+    </script>
+</body>
+
+</html>

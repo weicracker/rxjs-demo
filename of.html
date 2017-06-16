@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/rxjs/5.4.0/Rx.min.js"></script>
+</head>
+
+<body>
+    <button>aaaaa</button>
+    <script>
+        var source = Rx.Observable.of('Semlinker', 'Lolo');
+
+        source.subscribe({
+            next: function (value) {
+                console.log(value);
+            },
+            complete: function () {
+                console.log('complete!');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+        var button = document.querySelector('button');
+        Rx.Observable.fromEvent(button, 'click')
+            .throttleTime(1000)
+            .map(event => event.clientX)
+            .scan((count, clientX) => count + clientX, 0)
+            .subscribe(count => console.log(count));
+        var obs$ = Rx.Observable.create(function (observer) {
+            observer.next('1'); // RxJS 4.x 以前的版本用 onNext
+            observer.next('2');
+            setTimeout(() => {
+                observer.next('3');
+            }, 3000);
+        })
+        var subscription = obs$.subscribe(x => console.log(x));
+        subscription.next(555)
+        // Later:
+        subscription.unsubscribe();
+
+
+        //订阅
+        var observable = Rx.Observable.interval(1000);
+        var subscription1 = observable.subscribe(x => console.log(x));
+        
+        // Later:
+        // This cancels the ongoing Observable execution which
+        // was started by calling subscribe with an Observer.
+    </script>
+</body>
+
+</html>
